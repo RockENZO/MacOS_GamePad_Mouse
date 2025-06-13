@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		84F041092DFC022F0037502F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 84F041082DFC022F0037502F /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		84F040F12DFC01690037502F /* MacOS_GamePad_Mouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacOS_GamePad_Mouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F041082DFC022F0037502F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		84F040E82DFC01690037502F = {
 			isa = PBXGroup;
 			children = (
+				84F041082DFC022F0037502F /* README.md */,
 				84F040F32DFC01690037502F /* MacOS_GamePad_Mouse */,
 				84F040F22DFC01690037502F /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F041092DFC022F0037502F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

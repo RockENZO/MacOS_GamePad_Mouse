@@ -1,6 +1,7 @@
 import Cocoa
 
 class MouseController {
+    static let shared = MouseController()
     
     func moveMouse(to point: NSPoint) {
         let mouseEventDown = NSEvent.mouseEvent(with: .leftMouseDown, location: point, modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil, eventNumber: 0, clickCount: 1, pressure: 1.0)

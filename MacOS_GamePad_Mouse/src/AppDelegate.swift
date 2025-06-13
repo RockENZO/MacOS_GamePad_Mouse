@@ -1,6 +1,6 @@
 import Cocoa
 
-@main
+
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
@@ -21,7 +21,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         mouseController = MouseController()
 
         // Start monitoring gamepad events
-        gamepadManager.startMonitoring()
+        gamepadManager.startMonitoringGamepad()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

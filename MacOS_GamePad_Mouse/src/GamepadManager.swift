@@ -1,7 +1,11 @@
 import Foundation
 import GameController
 
-class GamepadManager {
+class GamepadManager: ObservableObject {
+    @Published var isConnected: Bool = false
+    @Published var lastLeftThumbstick: CGPoint = .zero
+    @Published var lastButtonA: Bool = false
+
     var gamepad: GCController?
     
     init() {
@@ -18,6 +22,7 @@ class GamepadManager {
     @objc func gamepadDidConnect(notification: Notification) {
         if let controller = notification.object as? GCController {
             gamepad = controller
+            isConnected = true
             setupGamepadInput(controller)
         }
     }
@@ -25,27 +30,24 @@ class GamepadManager {
     @objc func gamepadDidDisconnect(notification: Notification) {
         if let controller = notification.object as? GCController, controller == gamepad {
             gamepad = nil
+            isConnected = false
         }
     }
     
     private func setupGamepadInput(_ controller: GCController) {
-        controller.extendedGamepad?.valueChangedHandler = { [weak self] (gamepad) in
+        controller.extendedGamepad?.valueChangedHandler = { [weak self] (gamepad: GCExtendedGamepad, element: GCControllerElement) in
             self?.handleGamepadInput(gamepad)
         }
     }
-    
     private func handleGamepadInput(_ gamepad: GCExtendedGamepad) {
-        // Example: Move mouse based on left thumbstick input
         let mouseX = CGFloat(gamepad.leftThumbstick.xAxis.value)
         let mouseY = CGFloat(gamepad.leftThumbstick.yAxis.value)
+        lastLeftThumbstick = CGPoint(x: mouseX, y: mouseY)
+        lastButtonA = gamepad.buttonA.isPressed
         
         MouseController.shared.moveMouse(to: CGPoint(x: mouseX, y: mouseY))
-        
-        // Example: Click mouse if button pressed
         if gamepad.buttonA.isPressed {
             MouseController.shared.clickMouse()
         }
-        
-        // Additional button mappings can be handled here
     }
 }

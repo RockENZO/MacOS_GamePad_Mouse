@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct MacOS_GamePad_MouseApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var gamepadManager = GamepadManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(gamepadManager)
         }
     }
 }
