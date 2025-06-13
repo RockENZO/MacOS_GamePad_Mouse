@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         // Initialize GamepadManager and MouseController
         gamepadManager = GamepadManager()
-        mouseController = MouseController()
+        
 
         // Start monitoring gamepad events
         gamepadManager.startMonitoringGamepad()

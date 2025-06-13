@@ -1,25 +1,32 @@
 import Cocoa
+import Foundation
+import CoreGraphics
 
 class MouseController {
     static let shared = MouseController()
-    
-    func moveMouse(to point: NSPoint) {
-        let mouseEventDown = NSEvent.mouseEvent(with: .leftMouseDown, location: point, modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil, eventNumber: 0, clickCount: 1, pressure: 1.0)
-        let mouseEventUp = NSEvent.mouseEvent(with: .leftMouseUp, location: point, modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil, eventNumber: 0, clickCount: 1, pressure: 1.0)
-        
-        if let downEvent = mouseEventDown, let upEvent = mouseEventUp {
-            NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { _ in return downEvent }
-            NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp) { _ in return upEvent }
+
+    private init() {}
+
+    func moveMouse(by delta: CGPoint) {
+        DispatchQueue.main.async {
+            let loc = NSEvent.mouseLocation
+            let screenHeight = NSScreen.main?.frame.height ?? 0
+            // macOS origin is bottom-left, but NSEvent.mouseLocation uses bottom-left
+            let newLoc = CGPoint(x: loc.x + delta.x * 10, y: loc.y + delta.y * 10)
+            // Clamp to screen bounds
+            let clampedX = max(0, min(newLoc.x, NSScreen.main?.frame.width ?? newLoc.x))
+            let clampedY = max(0, min(newLoc.y, screenHeight))
+            CGWarpMouseCursorPosition(CGPoint(x: clampedX, y: clampedY))
         }
     }
-    
+
     func clickMouse() {
-        let mouseEventDown = NSEvent.mouseEvent(with: .leftMouseDown, location: NSEvent.mouseLocation, modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil, eventNumber: 0, clickCount: 1, pressure: 1.0)
-        let mouseEventUp = NSEvent.mouseEvent(with: .leftMouseUp, location: NSEvent.mouseLocation, modifierFlags: [], timestamp: 0, windowNumber: 0, context: nil, eventNumber: 0, clickCount: 1, pressure: 1.0)
-        
-        if let downEvent = mouseEventDown, let upEvent = mouseEventUp {
-            NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { _ in return downEvent }
-            NSEvent.addLocalMonitorForEvents(matching: .leftMouseUp) { _ in return upEvent }
+        DispatchQueue.main.async {
+            let loc = NSEvent.mouseLocation
+            let mouseDown = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: loc, mouseButton: .left)
+            let mouseUp = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: loc, mouseButton: .left)
+            mouseDown?.post(tap: .cghidEventTap)
+            mouseUp?.post(tap: .cghidEventTap)
         }
     }
 }

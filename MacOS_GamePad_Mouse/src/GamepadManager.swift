@@ -44,8 +44,9 @@ class GamepadManager: ObservableObject {
         let mouseY = CGFloat(gamepad.leftThumbstick.yAxis.value)
         lastLeftThumbstick = CGPoint(x: mouseX, y: mouseY)
         lastButtonA = gamepad.buttonA.isPressed
-        
-        MouseController.shared.moveMouse(to: CGPoint(x: mouseX, y: mouseY))
+
+        // Move mouse by delta, not to absolute position
+        MouseController.shared.moveMouse(by: CGPoint(x: mouseX, y: mouseY))
         if gamepad.buttonA.isPressed {
             MouseController.shared.clickMouse()
         }
