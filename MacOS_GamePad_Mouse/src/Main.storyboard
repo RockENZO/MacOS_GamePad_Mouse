@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14418" systemVersion="20D64" targetRuntime="macOS.Cocoa" propertyAccessControl="none">
+    <objects>
+        <window key="mainWindow" id="1">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+            <title key="title">Gamepad Mouse Controller</title>
+            <contentView key="contentView" id="2">
+                <view key="view" id="3">
+                    <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
+                    <subviews>
+                        <textField key="textField" id="4">
+                            <rect key="frame" x="20" y="20" width="440" height="22"/>
+                            <string key="string">Press buttons on your gamepad</string>
+                        </textField>
+                        <button key="startButton" id="5">
+                            <rect key="frame" x="20" y="60" width="100" height="32"/>
+                            <title key="title">Start</title>
+                        </button>
+                        <button key="stopButton" id="6">
+                            <rect key="frame" x="140" y="60" width="100" height="32"/>
+                            <title key="title">Stop</title>
+                        </button>
+                    </subviews>
+                </view>
+            </contentView>
+        </window>
+    </objects>
+</document>
